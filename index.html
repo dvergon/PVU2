@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--Import Google Icon Font-->
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+  <link type="text/css" rel="stylesheet" href="css/combination.css"  media="screen,projection"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!--leaflet.js-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ==" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js" integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg==" crossorigin=""></script>
+  <!--d3-->
+  <script src="https://d3js.org/d3.v3.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- geojson files from http://siit2.bcn.cl/mapas_vectoriales/index_html/ : -->
+  
+  <!--all regions: -->
+  <script type="text/javascript" src="geojson/chile.js"></script>
+  <!-- each region -->
+      <!--<script type="text/javascript" src="geojson/arica_parinacota.geojson"></script> 
+      <script type="text/javascript" src="geojson/antofagasta.geojson"></script> 
+      <script type="text/javascript" src="geojson/atacama.geojson"></script> 
+      <script type="text/javascript" src="geojson/aysen.geojson"></script> 
+      <script type="text/javascript" src="geojson/coquimbo.geojson"></script> 
+      <script type="text/javascript" src="geojson/araucania.geojson"></script> 
+      <script type="text/javascript" src="geojson/los_lagos.geojson"></script> 
+      <script type="text/javascript" src="geojson/los_rios.geojson"></script> 
+      <script type="text/javascript" src="geojson/maganallanes_antartica.geojson"></script> 
+      <script type="text/javascript" src="geojson/tarapaca.geojson"></script> 
+      <script type="text/javascript" src="geojson/valparaiso_easter_island.geojson"></script> 
+      <script type="text/javascript" src="geojson/bio_bio.geojson"></script> 
+      <script type="text/javascript" src="geojson/o_higgins.geojson"></script> 
+      <script type="text/javascript" src="geojson/maule.geojson"></script> 
+      <script type="text/javascript" src="geojson/santiago.geojson"></script>-->
+</head>
+<body>
+<!--nav-bar start-->
+  <nav class="grey lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><i class="material-icons">cloud</i>Plataforma de Seguimiento de Aplicationes</a>
+      <ul class="right hide-on-med-and-down">
+        <li><button class="waves-effect grey lighten-2 btn"><span style="font-size:1.7em;" class="glyphicon glyphicon-download"></span> Descargar base de datos</button></td></li>
+      </ul>
+    </div>
+  </nav>
+<!--nav-bar end-->
+  <div class="container">
+    <div class="section" >
+      <div class="row" >
+        <div class="col s12 m3" id='map-container' >
+          <div class="icon-block" >
+            <!-- map start-->
+            <h5 class="center">Porcente de avance</h5>
+            <div id='map' style=" min-height: 700px; position: relative"></div>  
+            <!-- map end-->         
+          </div>
+        </div>
+        <!--start chart-container-->
+        <div class="col s12 m8" id='chart-container'>
+          <div><h1>Chile<h1></h1></div>
+          <!-- filter button start-->
+          <select id="selectedChart" class="select-chart">
+            <option value="General" selected>Datos Generales</option>
+            <option value="Genero">Genero</option>
+            <option value="Typo">Typo de estableciemiento</option>
+            <label>Datos Generales</label>
+          </select>    
+          <!-- sunburst chart start-->
+          <div class="container">
+            <div id="chart" >
+              <div id="explanation" style="visibility: hidden;">
+                <span id="percentage"></span><br/>
+                de personas
+              </div>
+            </div> 
+            <div id="sidebar"></div>
+            <p></p>
+            <div id="legend" style="visibility: true;">
+            </div>
+          </div>
+          <!--sunburst chart end -->
+          <div class="container" style="width:20em; max-height: 200px;">
+            <div id="container2" id="graph-chart"></div>
+          </div>
+          <div class="container" id="container3"  id="bar-chart"></div>
+             <!-- <div class="row">
+                <form class="col s12">
+                  <div class="row">
+                    <div class="input-field col s6 search-input">
+                      <i class="material-icons right">search</i>
+                      <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+                      <label for="icon_prefix2">Buscar</label>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            -->     
+          </div>
+          <!--end chart-container-->
+        </div>
+      </div>
+    </div>
+ 
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <!--highcharts-->
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script type="text/javascript" src="highchart.js"></script>
+  
+  <!--materialize-->
+  <script type="text/javascript" src="materialize/materialize.min.js"></script>
+  
+  <script type="text/javascript">
+  var choosedRegion = false;
+  //Color Array: Type  [finalizado, Avanzado, sin avance] 
+  var colorType = ['#D4D4D4','#B0DEB1', '#21DA29'];
+  //[maculin, feminin]
+  var colorGender = ['#475CCD','#FA0081'];
+  //[Muncipal, Subvencionado, Particular]
+  var colorSchools = ['#9447CD','#00C3FA','#FAAF00'];
+ 
+  //if window is ready: 
+  window.onload = function(e){ 
+    //create Leaflet Map
+    createMap();  
+    //create graph chart:
+    createChartGraph('container2', getSum_ofLastValuesInArray(data1,data2));
+    //update directly:
+    //create bar chart:
+    dataArray = createDataRegion(data3, data2, a, b, c);
+    //draw bar chart: 
+    createChartBar('container3',dataArray);
+    //draw sunburst:
+    updateData(json_general,colors_school); 
+  }
+
+  $(document).ready(function() {
+
+    $('#selectedChart').on('change', function() {
+      if(choosedRegion == false ){
+        if(selectedChart.value == 'Genero'){
+          updateGraphData(selectedChart.value);
+          updateDataRegion(selectedChart.value, data3, data4);
+          updateData(json_gender, colors_gender); 
+
+        }
+        if(selectedChart.value == 'Typo'){
+          updateGraphData(selectedChart.value);
+          updateDataRegion(selectedChart.value, data2, data4);
+          updateData(json_schools,colors_school); 
+
+        }
+        if(selectedChart.value == 'General'){
+          updateGraphData(selectedChart.value);
+          updateDataRegion(selectedChart.value, data1, data2);
+          updateData(json_general,colors_school); 
+
+        }
+      }
+    });
+
+    $('select').material_select();
+  });
+  </script>
+ <script type="text/javascript" src="combination.js"></script>
+
+</body>
+</html>
