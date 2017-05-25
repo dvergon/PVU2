@@ -1,0 +1,10 @@
+
+
+TODO interface:
+
+-new category: general HC/TC 
+-real data 
+
+-mouseover sunburst chart
+-map zoom out 
+-search function 

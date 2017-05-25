@@ -68,20 +68,17 @@ function createDataRegion(in1, in2){
 }
 
 /** ______________________________________________________start UPDATE GRAPH________________________________________________________________**/
-
 //update Data for Graph 
 function updateGraphData(type){
     // TODO check if update is necessary!
-
     var color = false;
     var chart = $('#container2').highcharts();
     //remove all series :
     while(chart.series.length > 0)
             chart.series[0].remove(true);
-
 /** _____________________________________________  update GENERO   ____________________________________________________________________________________________ **/
     if(type == 'Genero'){ 
-         //title:
+        //title:
         chart.setTitle({ text: 'Progresion segun sexo (periodo: 01/01/2017 - 30/07/2017)'});
         //TODO get new Values from original Data
         var tmp1 = [20, 285, 2000, 2555, 3666, 4000];
@@ -95,7 +92,6 @@ function updateGraphData(type){
                     enabled: false
                     }
             },false);
-
         chart.addSeries({
                 name: 'feminino',
                 data: createDataGraph(tmp2,tmp1),
@@ -103,28 +99,19 @@ function updateGraphData(type){
                     enabled: false
                     }
                  },false);
-
-
         chart.series[0].update({
             color: color ? null : colorGender[0] 
         });
         chart.series[1].update({
             color: color ? null : colorGender[1]
         });
-
-        color = !color;
-
-        //apply changes and redraw()
-        chart.redraw();
     }
 /** _____________________________________________  update GENERAL   ____________________________________________________________________________________________ **/
     if(type == 'General'){
         //title:
-        chart.setTitle({ text: ' Progresion global (01/01/2017 - 30/07/2017) '});
-       
-        //data:
-        
-        //add new data in % -> between [0,100]
+        chart.setTitle({ text: ' Progresion global (01/01/2017 - 30/07/2017) '});   
+       //data:  
+       //add new data in % -> between [0,100]
         chart.addSeries({
             'name': 'Avancado',
             'data' : [0.01,14,43,50,76,79],
@@ -133,22 +120,14 @@ function updateGraphData(type){
                 }
             }
             ,false);
-
         //color:
         chart.series[0].update({
             color: color ? null : colorType[2] 
-        });
-        color = !color;
-
-        chart.redraw();  
+        });   
     }
 /** _____________________________________________  update TYPO   ____________________________________________________________________________________________ **/
-
     if(type == 'Typo'){
-
         chart.setTitle({ text: ' Progresion segun tipo de establecimiento (01/01/2017 - 30/07/2017) '});
-
-
         chart.addSeries({
             'name': 'Muncipales',
             'data' : [0.01,14,43,50,76,79],
@@ -157,6 +136,7 @@ function updateGraphData(type){
                 }
             }
             ,false);
+
         chart.addSeries({
             'name': 'Particular Sub.',
             'data' : [0.01,1,13,30,36,49],
@@ -165,6 +145,7 @@ function updateGraphData(type){
                 }
             }
             ,false);
+
         chart.addSeries({
             'name': 'Particular',
             'data' : [1,4,23,50,71,79],
@@ -187,12 +168,17 @@ function updateGraphData(type){
         chart.series[2].update({
             color: color ? null : colorSchools[1] 
         });
-        
-        color = !color;
     }
-    else{}    
+    else{
+        return
+    } 
+    //for all :  
+    color = !color;   
+    //apply changes and redraw()   
+    chart.redraw();  
 }
 /** _____________________________________________________ end UPDATE GRAPH________________________________________________________________**/
+/** ______________________________________________________________________________________________________________________________________**/
 
 
 /** _____________________________________________________ start UPDATE BAR CHART ________________________________________________________________**/
@@ -201,18 +187,17 @@ function updateGraphData(type){
 creates: [feminino in % ,masculino in % ,sumArray, feminino, masculino]   **/
 function updateDataRegion(type, in1, in2){
     //get Chart to update
-    console.log(type)
     var color= false;
     var chart = $('#container3').highcharts();
     //remove all series :
         while(chart.series.length > 0)
             chart.series[0].remove(true);
-
 /** _____________________________________________  BAR CHART update GENERAL   ____________________________________________________________________________________________ **/
-
     if(type == 'General'){
         //title
         chart.setTitle({ text: 'Detalle de avance por regiones (%)'});
+        //TODO set names of Regions 
+        //chart.xAxis[0].setCategories(['region1', 'region2', 'region3']);
         //set data
         chart.addSeries( {
                 name: 'Sin Avance',
@@ -273,8 +258,7 @@ function updateDataRegion(type, in1, in2){
                     y: dataArray[1][4],
                     myData: dataArray[4][4]
                 }]
-            },false);
-        
+            },false); 
         //set Color   
         chart.series[0].update({
             color: color ? null : colorType[0] 
@@ -285,16 +269,14 @@ function updateDataRegion(type, in1, in2){
         chart.series[2].update({
             color: color ? null : colorType[2]  
         });
-
-        color = !color;
-
-
     }
 /** _____________________________________________ BAR CHART update GENERO   ____________________________________________________________________________________________ **/
 
     if(type == 'Genero'){
         //title
         chart.setTitle({ text: 'detalle de finalizados segun region sexo (%)'});
+        //TODO set names of Regions 
+        //chart.xAxis[0].setCategories(['region1', 'region2', 'region3']);
 
         //set data:
         var sumArray = [], out1 = [], out2 = [];
@@ -318,6 +300,7 @@ function updateDataRegion(type, in1, in2){
                 name: 'masculino',
                 data: tmpData1,
             },false);
+
         chart.addSeries({
                 name: 'feminino',
                 data: tmpData2,
@@ -329,19 +312,16 @@ function updateDataRegion(type, in1, in2){
         });
         chart.series[1].update({
             color: color ? null : colorGender[1]
-        });
-
-        color = !color;
-
-        //apply changes and redraw()
-        
-
+        });        
     }
 /** _____________________________________________BAR CHART  update TYPO   ____________________________________________________________________________________________ **/
 
     if(type == 'Typo'){
         //title
         chart.setTitle({ text: 'Prcentaje de finalizados segun region y tipo de establecimiento (%) '});
+
+        //TODO set names of Regions 
+        //chart.xAxis[0].setCategories(['region1', 'region2', 'region3']);
 
         chart.addSeries( {
                 name: 'Muncipal',
@@ -383,6 +363,7 @@ function updateDataRegion(type, in1, in2){
                     myData: dataArray[4][4]
                 }]
             },false);
+         
         chart.addSeries( {
                 name: 'Particular',
                 data: [{
@@ -411,14 +392,13 @@ function updateDataRegion(type, in1, in2){
         });
         chart.series[2].update({
             color: color ? null : colorSchools[2]  
-        });
-
-        color = !color;   
+        }); 
     }
     else{
         return;
     } 
     //for all :  
+    color = !color;  
     //apply changes and redraw()   
     chart.redraw();     
 }
@@ -600,13 +580,4 @@ function createChartBar(container, dataArray){
 
 
 
-//TODO:
-// 100% axen berechnen 
-// Daten aus einem Json rauslesen: für alle Charts:
-// legenden optimieren
-// selection click-> actualisieren
-//map nicht so weit nach links und rechts zoomen 
-// Daten ändern bei region :
-// + andere Karte zeigen Layer change to region 
-// search button + funktion 
 
