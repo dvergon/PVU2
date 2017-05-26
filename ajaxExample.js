@@ -13,7 +13,7 @@ function launchAjax(){
 		headers: {
 			'customToken': "something", //in case we need a custom header for the request (auth for example) we can put it in here
 		},
-		dataType: 
+		dataType: "json", //parses the server response to this type. xml, html, script, json, jsonp, text, are valid values. default: Intelligent Guess (xml, json, script, or html)
 		crossDomain: true, //determines if you can send the request to another server (from http://a.com to http://b.cl) default:true
 		processData: false, //determines if the data passed in the "data" field is transformed to a string (urlencoded). default:true. 
 		                    //Sometimes you have to set it to false: i.e: send a FormData object
