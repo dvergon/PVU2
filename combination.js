@@ -1,114 +1,115 @@
 //testdata
-var json_gender={  
- "children":[  
-  {  
-   "name":"Finalizado",
-   "children":[ 
-   {  
-     "name":"feminino",
-     "size":338
-   },
-   {  
-     "name":"masculino",
-     "size":228
-   }],
- },
- {  
-   "name":"Avanzando",
-   "children":[  
-   {  
-     "name":"feminino",
-     "size":3138
-   },
-   {  
-     "name":"masculino",
-     "size":1228
-   }
-   ]},
-  {  
-   "name":"Sin avance",
-   "children":[  
-   {  
-     "name":"feminino",
-     "size":3138
-   },
-   {  
-     "name":"masculino",
-     "size":1228
-   }
-   ]}
- ]
+var json_gender={
+   "children":[
+      {
+         "name":"feminino",
+         "children":[
+            {
+               "name":"Finalizado",
+               "size":28
+            },
+            {
+               "name":"Avanzando",
+               "size":38
+            },
+            {
+               "name":"Sin avance",
+               "size": 34
+            }
+         ],
+      },
+      {
+         "name":"masculino",
+         "children":[
+            {
+               "name":"Finalizado",
+               "size": 22
+            },
+            {
+               "name":"Avanzando",
+               "size": 48
+            },
+            {
+               "name":"Sin avance",
+               "size": 30
+            }
+         ],
+      }
+   ]
 };
 
-var json_general={  
- "children":[  
-  {  
-   "name":"Finalizado",
-   "size": 399
-  },
-  {  
-   "name":"Avanzando",
-   "size": 394
-  },
-  {  
-   "name":"Sin avance",
-   "size": 33
-  }]
+var json_general={
+   "children":[
+      {
+         "name":"Finalizado",
+         "size":399
+      },
+      {
+         "name":"Avanzando",
+         "size":394
+      },
+      {
+         "name":"Sin avance",
+         "size":33
+      }
+   ]
 };
 
-var json_schools={  
- "children":[  
-  {  
-   "name":"Finalizado",
-   "children":[ 
-   {  
-     "name":"Muncipal",
-     "size":3238
-   },
-   {  
-     "name":"Subvencionado",
-     "size":2128
-   },
-   {  
-     "name":"Particular",
-     "size":282
-   }     
-   ],
- },
- {  
-   "name":"Avanzando",
-   "children":[  
-   {  
-     "name":"Muncipal",
-     "size":3348
-   },
-   {  
-     "name":"Subvencionado",
-     "size":2118
-   },
-   {  
-     "name":"Particular",
-     "size":56
-   }
+var json_schools={
+   "children":[
+      {
+         "name":"Finalizado",
+         "children":[
+            {
+               "name":"Muncipal",
+               "size":3238
+            },
+            {
+               "name":"Subvencionado",
+               "size":2128
+            },
+            {
+               "name":"Particular",
+               "size":282
+            }
+         ],
+
+      },
+      {
+         "name":"Avanzando",
+         "children":[
+            {
+               "name":"Muncipal",
+               "size":3348
+            },
+            {
+               "name":"Subvencionado",
+               "size":2118
+            },
+            {
+               "name":"Particular",
+               "size":56
+            }
+         ]
+      },
+      {
+         "name":"Sin avance",
+         "children":[
+            {
+               "name":"Muncipal",
+               "size":788
+            },
+            {
+               "name":"Subvencionado",
+               "size":359
+            },
+            {
+               "name":"Particular",
+               "size":332
+            }
+         ]
+      }
    ]
- },
- {  
-    "name":"Sin avance",
-    "children":[  
-   {  
-     "name":"Muncipal",
-     "size":788
-   },
-   {  
-     "name":"Subvencionado",
-     "size":359
-   },
-   {  
-     "name":"Particular",
-     "size":332
-   }
-   ]
- }]
 };
 
 var map;
@@ -272,6 +273,7 @@ var arc = d3.svg.arc()
 
 //draw and set up the visualization
 function createVisualization(json,colors) {
+  console.log('createVisu')
   // Basic setup 
   initializeBreadcrumbTrail();
   //drawLegend(colors);
@@ -304,7 +306,7 @@ function createVisualization(json,colors) {
 
 // Fade all but the current sequence, and show it in breadcrumb trail
 function mouseover(d, colors) {
- /**
+
   var percentage = (100 * d.value / totalSize).toPrecision(3);
   var percentageString = percentage + "%";
   if (percentage < 0.1) {
@@ -327,12 +329,11 @@ function mouseover(d, colors) {
   .style("opacity", 0.6);
 
   // Then highlight only those that are an ancestor of the current segment.
-  //vis.selectAll("#container").select("path")
-    //  .filter(function(node) {
-      //          return (sequenceArray.indexOf(node) >= 0);
-        //      })
-   //   .style("opacity", 1); 
-   **/
+  vis.selectAll("#container").select("path")
+    .filter(function(node) {
+      return (sequenceArray.indexOf(node) >= 0);
+    })
+    .style("opacity", 1); 
  }
 
 //Restore everything to full opacity when moving off the visualization.

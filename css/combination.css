@@ -36,7 +36,7 @@
 
 #map {
   position: relative;
-  height: 400px;
+  height: 100%;
   background-color: white;
   }
   .info {
@@ -61,10 +61,12 @@
   padding: 0px 0px 0px 8px ! important;
   font-size: 1.1em ! important;
 }
+
 .select-wrapper {
   position: relative !important;
-  width: 25% ! important;
+  width: 28% ! important;
 }
+
 .search-input {
   background-color: #DEE5E8 ! important;
   border: 2px solid #DEE5E8 ! important;
@@ -87,8 +89,8 @@
 #container2 {
   margin: -1em; 
   margin-left: 1em; 
-  height:250px ! important; 
-  width: 500px ! important
+  height:20em; 
+  width: 35em;
 }
 
 #container3 {

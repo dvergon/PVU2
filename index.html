@@ -72,7 +72,7 @@
           </select>    
           <!-- sunburst chart start-->
           <div class="container">
-            <div id="chart" >
+            <div class="col s12 m3" id="chart" >
               <div id="explanation" style="visibility: hidden;">
                 <span id="percentage"></span><br/>
                 de personas
@@ -85,9 +85,9 @@
           </div>
           <!--sunburst chart end -->
           <div class="container" style="width:20em; max-height: 200px;">
-            <div id="container2" id="graph-chart"></div>
+            <div class="col s12 m3"  id="container2" id="graph-chart"></div>
           </div>
-          <div class="container" id="container3"  id="bar-chart"></div>
+          <div class=" col s12 m3 container" id="container3"  id="bar-chart"></div>
              <!-- <div class="row">
                 <form class="col s12">
                   <div class="row">
@@ -137,7 +137,8 @@
     //draw bar chart: 
     createChartBar('container3',dataArray);
     //draw sunburst:
-    updateData(json_general,colors_school); 
+    //updateData(json_general,colors_school); 
+    createVisualization(json_general, colors_school);
   }
 
   $(document).ready(function() {
