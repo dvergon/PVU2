@@ -15,10 +15,10 @@ var sub        = [total, hombres, mujeres];
 
 
 var dataStruc = [	 					                    
-	[String: region_name], 				// name of the region: index 0 --> Chile total 
-	[region_students_total] 			// amount of students total
-	[homres_total],						// ampunt of hombres 
-	[mujeres_total],					// amount of mujeres
+	String: region_name, 				// name of the region: index 0 --> Chile total 
+	region_students_total 				// amount of students total
+	homres_total,						// ampunt of hombres 
+	mujeres_total,					    // amount of mujeres
 	avanzado,							// Array avancado : avanzado = [total, hombres, mujeres, public, private, sub ]
 	terminado,							// Array terminado : terminado = [total, hombres, mujeres, public, private, sub ]
 	sinAvance,							// sinAvance = [total, hombres, mujeres, public, private, sub ]
@@ -77,3 +77,41 @@ sinAvance en %  region :  x / region_students_total * 100
 -> x = sinAvance[sub]     	// for Type of school Bar
 
 **/
+
+function getData(){
+
+	// build data array :
+
+	//var avanzado  =	[total, hombres, mujeres, public, private, sub ];
+	var avanzado  =	[30, 15, 15, 10, 10, 10 ];
+	//var terminado = [total, hombres, mujeres, public, private, sub ];
+	var terminado = [50, 20, 30, 5, 15, 30 ];
+	//var sinAvance = [total, hombres, mujeres, public, private, sub ];
+	var sinAvance = [70, 45, 25, 12, 28, 30 ];
+
+
+	//var public     = [total, hombres, mujeres];
+	var public     = [27, 15, 22];
+	//var private    = [total, hombres, mujeres];
+	var private    = [53, 23, 30];
+	//var sub        = [total, hombres, mujeres];
+	var sub        = [70, 42, 18];
+
+
+	var dataStruc = [	 					                    
+		'chile', 				// name of the region: index 0 --> Chile total 
+		150,								// amount of students total
+		80,									// ampunt of hombres 
+		70,									// amount of mujeres
+		avanzado,							// Array avancado : avanzado = [total, hombres, mujeres, public, private, sub ]
+		terminado,							// Array terminado : terminado = [total, hombres, mujeres, public, private, sub ]
+		sinAvance,							// sinAvance = [total, hombres, mujeres, public, private, sub ]
+		
+		public,								// public  = [total, hombres, mujeres]
+		private,							// private = [total, hombres, mujeres]
+		sub 								// sub     = [total, hombres, mujeres]
+	]
+
+
+	return dataStruc;
+}
