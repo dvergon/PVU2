@@ -56,12 +56,26 @@
           <div class="icon-block" >
             <!-- map start-->
             <h5 class="center">Porcente de avance</h5>
-            <div id='map' style=" min-height: 700px; position: relative"></div>  
+            <div class= "z-depth-1"  id='map' style=" min-height: 700px; position: relative">
+              <!-- Set the display of this container to none so we can
+                   add it programmatically to `legendControl` -->
+              <div class= "leaflet-bottom" id="legend" style="">
+                <strong>Porcente de Avanced 0 - 100%</strong>
+                <nav class="legend" style="background: white;">
+                  <span style='background: #D4D4D4'></span>
+                  <span style='background: #B0DEB1'></span>
+                  <span style='background: #21DA29'></span>
+                  <!--<label>0</label>
+                  <label></label>
+                  <label>100%</label>
+                  -->
+              </div>
+            </div>  
             <!-- map end-->         
           </div>
         </div>
         <!--start chart-container-->
-        <div class="col s12 m8" id='chart-container'>
+        <div class="col s12 m8 " id='chart-container'>
           <div><h1>Chile<h1></h1></div>
           <!-- filter button start-->
           <select id="selectedChart" class="select-chart">
@@ -105,6 +119,8 @@
         </div>
       </div>
     </div>
+
+
  
   <!--Import jQuery before materialize.js-->
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -117,6 +133,7 @@
   <script type="text/javascript" src="materialize/materialize.min.js"></script>
   
   <script type="text/javascript">
+
   var choosedRegion = false;
   //Color Array: Type  [finalizado, Avanzado, sin avance] 
   var colorType = ['#D4D4D4','#B0DEB1', '#21DA29'];
@@ -124,7 +141,8 @@
   var colorGender = ['#475CCD','#FA0081'];
   //[Muncipal, Subvencionado, Particular]
   var colorSchools = ['#9447CD','#00C3FA','#FAAF00'];
- 
+
+   
   //if window is ready: 
   window.onload = function(e){ 
     //create Leaflet Map

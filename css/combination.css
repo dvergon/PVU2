@@ -51,6 +51,23 @@
       margin: 0 0 5px;
       color: #777;
   }
+#legend{
+  bottom: -3em;
+  left: 0.75em;
+
+}
+.legend label,
+.legend span {
+  display: block;
+  float: left;
+  height: 1.5em;
+  width: 9.5em;
+  text-align: center;
+  font-size: 9px;
+  color: #808080;
+  position: relative;
+  top: 3px;
+}  
 
 .select-chart input {
   background-color: transparent ! important;

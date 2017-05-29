@@ -99,7 +99,7 @@ function getData(){
 
 
 	var dataStruc = [	 					                    
-		'chile', 				// name of the region: index 0 --> Chile total 
+		'chile', 							// name of the region: index 0 --> Chile total 
 		150,								// amount of students total
 		80,									// ampunt of hombres 
 		70,									// amount of mujeres
@@ -110,7 +110,7 @@ function getData(){
 		public,								// public  = [total, hombres, mujeres]
 		private,							// private = [total, hombres, mujeres]
 		sub 								// sub     = [total, hombres, mujeres]
-	]
+	];
 
 
 	return dataStruc;

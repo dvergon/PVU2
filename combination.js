@@ -112,6 +112,8 @@ var json_schools={
    ]
 };
 
+
+
 var map;
 //testData
 var colorArray = [883368, 836256, 280543, 6883563, 970419, 1007831, 1759167, 683203, 379709, 2036443, 104843, 575268, 183712, 718717, 158657];
@@ -121,6 +123,7 @@ var colorArray = [883368, 836256, 280543, 6883563, 970419, 1007831, 1759167, 683
 function createMap(){
   // to remove the leaflet logo add ,{ attributionControl:false } after 'map'
   map = L.map('map',{ attributionControl:false }).setView([-39.012948, -71.726907], 3);
+
 
   // with background world map : https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
   L.tileLayer('', {
@@ -133,13 +136,22 @@ function createMap(){
   }).addTo(map);
 
   //read geojson file
-  var geojson = L.geoJson(chile).addTo(map);
-  
-  //add style
+  var geojson = L.geoJson(chile, { weight: 1 }).addTo(map);
+
+  // set color
+  function style(feature) {
+    return { 
+      weight: 1.3,    
+      color: 'white',
+      fillOpacity: 0.6,
+      fillColor: getColor(feature.properties.POBL2010)
+    };
+  }
+    //add style
   L.geoJson(chile, {style: style}).addTo(map);
 
   geojson = L.geoJson(chile, {
-    style: style,
+    style:style,
     onEachFeature: onEachFeature
   }).addTo(map);
 
@@ -158,6 +170,7 @@ function createMap(){
   };
 
   info.addTo(map);
+  //map.legendControl.addLegend(document.getElementById('legend').innerHTML);
 
   //define color 
   function getColor(d) {
@@ -166,26 +179,14 @@ function createMap(){
             colorType[2];
   }
 
-  // set color
-  function style(feature) {
-    return {
-      fillColor: getColor(feature.properties.POBL2010),
-      weight: 2,
-      opacity: 1,
-      color: '#D4D4D4',
-      dashArray: '3',
-      fillOpacity: 0.6
-    };
-  }
-
   //highlight surroundings
   function highlightFeature(e) {
     var layer = e.target;
 
     layer.setStyle({
-      weight: 3,
       color: '#666',
       dashArray: '',
+      weight: 3,
       fillOpacity: 0.7
     });
 
