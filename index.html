@@ -39,23 +39,27 @@
       <script type="text/javascript" src="geojson/maule.geojson"></script> 
       <script type="text/javascript" src="geojson/santiago.geojson"></script>-->
 </head>
-<body>
+<style type="text/css">
+  
+  
+}
+</style>
+<body style="background: #eff3f9;">
 <!--nav-bar start-->
-  <nav class="grey lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><i class="material-icons">cloud</i>Plataforma de Seguimiento de Aplicationes</a>
+  <nav class="white" role="navigation">
+    <div class="nav-wrapper container"><a style="color:black" id="logo-container"> <img src="images/PVU.png">Plataforma de Seguimiento de Aplicationes</a>
       <ul class="right hide-on-med-and-down">
-        <li><button class="waves-effect grey lighten-2 btn"><span style="font-size:1.7em;" class="glyphicon glyphicon-download"></span> Descargar base de datos</button></td></li>
+        <li><button class="waves-effect grey lighten-2 btn "><span class="glyphicon glyphicon-download"></span> Descargar base de datos</button></td></li>
       </ul>
     </div>
   </nav>
 <!--nav-bar end-->
-  <div class="container">
-    <div class="section" >
+  <div class="container" style="margin-top: 2em;">
+    <div class="section" style="background: white">
       <div class="row" >
         <div class="col s12 m3" id='map-container' >
           <div class="icon-block" >
             <!-- map start-->
-            <h5 class="center">Porcente de avance</h5>
             <div class= "z-depth-1"  id='map' style=" min-height: 700px; position: relative">
               <!-- Set the display of this container to none so we can
                    add it programmatically to `legendControl` -->
@@ -76,7 +80,11 @@
         </div>
         <!--start chart-container-->
         <div class="col s12 m8 " id='chart-container'>
-          <div><h1>Chile<h1></h1></div>
+          <div> 
+            <h1 style="margin-top: 0.5em;">Chile 
+              <hr style="margin-top: 5px ! important; margin-bottom: 20px ! important; border-top: 2px solid #eee;"/>
+            </h1>
+          </div>
           <!-- filter button start-->
           <select id="selectedChart" class="select-chart">
             <option value="General" selected>Datos Generales</option>
@@ -85,7 +93,7 @@
             <label>Datos Generales</label>
           </select>    
           <!-- sunburst chart start-->
-          <div class="container">
+          <div class="  hide-on-med-and-down container">
             <div class="col s12 m3" id="chart" >
               <div id="explanation" style="visibility: hidden;">
                 <span id="percentage"></span><br/>
@@ -101,19 +109,23 @@
           <div class="container" style="width:20em; max-height: 200px;">
             <div class="col s12 m3"  id="container2" id="graph-chart"></div>
           </div>
+
           <div class=" col s12 m3 container" id="container3"  id="bar-chart"></div>
-             <!-- <div class="row">
-                <form class="col s12">
-                  <div class="row">
-                    <div class="input-field col s6 search-input">
-                      <i class="material-icons right">search</i>
-                      <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
-                      <label for="icon_prefix2">Buscar</label>
-                    </div>
-                  </div>
-                </form>
+
+          <div class="row">
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s6">
+                  <i class="material-icons prefix">search</i>
+                  <input id="icon_prefix" type="text" data-error="wrong" class="validate">
+                  <label class="mat-label" for="region">ver Region:</label>
+                </div>
               </div>
-            -->     
+            </form>
+          </div>
+
+        
+               
           </div>
           <!--end chart-container-->
         </div>
@@ -185,6 +197,9 @@
     });
 
     $('select').material_select();
+
+     
+
   });
   </script>
  <script type="text/javascript" src="combination.js"></script>

@@ -124,17 +124,23 @@ function createMap(){
   // to remove the leaflet logo add ,{ attributionControl:false } after 'map'
   map = L.map('map',{ attributionControl:false }).setView([-39.012948, -71.726907], 3);
 
+  map.dragging.disable();
+
+  /**var southWest = L.latLng(-35.012948, -71.726907),
+      northEast = L.latLng(-38.112948, -72.826907),
+      bounds = L.latLngBounds(southWest, northEast);
+  
+  map.fitBounds(bounds);
+  **/
 
   // with background world map : https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
   L.tileLayer('', {
     maxZoom: 7,
     minZoom: 4,
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-    '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-    'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    id: 'mapbox.light'
+   // maxBounds: bounds,
   }).addTo(map);
 
+ 
   //read geojson file
   var geojson = L.geoJson(chile, { weight: 1 }).addTo(map);
 
@@ -222,6 +228,10 @@ function createMap(){
     });
   }
 }
+
+
+
+
 
 // Dimensions of sunburst.
 var width = 206;

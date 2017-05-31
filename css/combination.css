@@ -1,8 +1,10 @@
-.body {
-  background-color: grey; 
-}
+
 #sidebar {
   margin-left: 390px;
+}
+
+#container{
+  margin-top: 2em ! important;
 }
 
 #sequence text, #legend text {
