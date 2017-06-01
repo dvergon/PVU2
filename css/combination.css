@@ -110,12 +110,16 @@
   margin-left: 1em; 
   height:20em; 
   width: 35em;
+  min-width: 310px;
+  max-width: 35em;
 }
 
 #container3 {
-  height:280px ! important; 
-  width: 750px ! important;     
+  height:280px ; 
+    
   margin-top: 3em;
+  min-width: 310px;
+  max-width: 800px;
 }
 
 .caret {

@@ -273,6 +273,8 @@ function updateDataRegion(type, in1, in2){
 /** _____________________________________________ BAR CHART update GENERO   ____________________________________________________________________________________________ **/
 
     if(type == 'Genero'){
+        //resize Chart :
+        //chart.setSize(400, 300);
         //title
         chart.setTitle({ text: 'detalle de finalizados segun region sexo (%)'});
         //TODO set names of Regions 
@@ -445,19 +447,49 @@ function createChartGraph(container, sum){
         },
         plotOptions: {
             area: {
-                    pointStart: 0,
-                    marker: {
-                        enabled: false,
-                        symbol: 'circle',
-                        radius: 2,
-                        states: {
-                            hover: {
-                                enabled: true
-                            }
-                        },                       
-                    }
-                },
+                pointStart: 0,
+                marker: {
+                    enabled: false,
+                    symbol: 'circle',
+                    radius: 2,
+                    states: {
+                        hover: {
+                            enabled: true
+                        }
+                    },                       
+                }
             },
+        },
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 300
+                },
+                chartOptions: {
+                    legend: {
+                        align: 'center',
+                        verticalAlign: 'bottom',
+                        layout: 'horizontal'
+                    },
+                    yAxis: {
+                        labels: {
+                            align: 'left',
+                            x: 0,
+                            y: -5
+                        },
+                        title: {
+                            text: 'sgsthee'
+                        }
+                    },
+                    subtitle: {
+                        text: null
+                    },
+                    credits: {
+                        enabled: false
+                    }
+                }
+            }]
+        },
         colors: [
          colorType[2]
         ],

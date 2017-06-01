@@ -122,9 +122,14 @@ var colorArray = [883368, 836256, 280543, 6883563, 970419, 1007831, 1759167, 683
 //create leflet map 
 function createMap(){
   // to remove the leaflet logo add ,{ attributionControl:false } after 'map'
-  map = L.map('map',{ attributionControl:false }).setView([-39.012948, -71.726907], 3);
+  map = L.map('map',{ attributionControl:false ,zoomControl: false}).setView([-39.012948, -71.726907], 3);
 
   map.dragging.disable();
+  map.touchZoom.disable();
+  map.doubleClickZoom.disable();
+  map.scrollWheelZoom.disable();
+  map.boxZoom.disable();
+  map.keyboard.disable();
 
   /**var southWest = L.latLng(-35.012948, -71.726907),
       northEast = L.latLng(-38.112948, -72.826907),
@@ -135,7 +140,7 @@ function createMap(){
 
   // with background world map : https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
   L.tileLayer('', {
-    maxZoom: 7,
+    maxZoom: 4,
     minZoom: 4,
    // maxBounds: bounds,
   }).addTo(map);
@@ -184,9 +189,33 @@ function createMap(){
             d < 575268 ? colorType[1] :
             colorType[2];
   }
+  var selected= null;
 
   //highlight surroundings
   function highlightFeature(e) {
+    var layer = e.target;
+/**
+    layer.setStyle({
+      color: '#666',
+      dashArray: '',
+      weight: 4,
+      fillOpacity: 0.7
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+      layer.bringToFront();
+    }
+    **/
+    info.update(layer.feature.properties);
+  }
+
+  //highlight surroundings
+  function clickHighlight(e) {
+    geojson = L.geoJson(chile, {
+      style:style,
+      onEachFeature: onEachFeature
+    }).addTo(map);
+
     var layer = e.target;
 
     layer.setStyle({
@@ -200,31 +229,38 @@ function createMap(){
       layer.bringToFront();
     }
     info.update(layer.feature.properties);
+    
   }
+  
+
+
   //reset surroundings
   function resetHighlight(e) {
-    geojson.resetStyle(e.target);
-    info.update();
-  }
+    
+     // geojson.resetStyle(e.target);
+      info.update();
+
+    }
 
   //zoom to clicked region
   function zoomToFeature(e) {
-    map.fitBounds(e.target.getBounds());
+    //map.fitBounds(e.target.getBounds());
       //TODO call method for updating Data in this region
-      if(e.target.feature.properties.NOM_PROV == "Chiloe"){
+      //if(e.target.feature.properties.NOM_PROV == "Chiloe"){
         //d3.select("body").select("p").append("h2")
         //.text(e.target.feature.properties.NOM_REG)
-        updateGraphData('Typo');
-        updateDataRegion('Typo', data2, data4);
-        updateData(json_schools,colors_school); 
-      }
+        //updateGraphData('Typo');
+        //updateDataRegion('Typo', data2, data4);
+        //updateData(json_schools,colors_school); 
+      //}
     }
   //hower over region
   function onEachFeature(feature, layer) {
     layer.on({
       mouseover: highlightFeature,
       mouseout: resetHighlight,
-      click: zoomToFeature
+      //click: zoomToFeature
+      click: clickHighlight
     });
   }
 }
