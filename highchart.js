@@ -53,6 +53,15 @@ function equalLength(in1, in2){
     }return false;
 }
 
+//calculate percentage
+function calculatePercentage( total, val){
+    return val/total *100;
+}
+//calculate percentage
+function calculatePercentage2( total, val1, val2, val3){
+    console.log(
+    (val1/total *100)+' '+ (val2/total *100)+' '(val3/total *100));
+}
 /**creates Data for bar chart region 
 creates: [feminino in % ,masculino in % ,sumArray, feminino, masculino] **/
 function createDataRegion(in1, in2){
@@ -67,24 +76,40 @@ function createDataRegion(in1, in2){
     return [out1,out2,sumArray,in1, in2];
 }
 
+/** general Graph Series creator   **/
+function createGeneralGraphSeries(dataArray){
+     var result=[];
+     console.log(dataArray)
+     for (var i = 0; i < dataArray[0][18].length; i++) {
+         result.push(dataArray[0][18][i]);
+     }
+    return result;
+}
 
 /** general BAr Series creator   **/
 function createGeneralBarSeries(dataArray){
      var tmp;
 
-        var tmpData=[];
+        var tmpData1=[],tmpData2=[],tmpData3=[];
         //todo loop 
+        for (var i = 3; i < 6; i++) {        
         //update y.value and myData
             //avanzado index 6
-            tmp = {name: 'Avanzando', 'y': dataArray[6][0], 'myData' : dataArray[7][0], marker: {enabled: false }};
-            tmpData.push(tmp);
+            tmp = {'y': dataArray[0][7][i], 'myData' : dataArray[0][6][i]};
+            tmpData1.push(tmp);
             //terminado index 8
-            tmp = {name: 'Terminado','y': dataArray[8][0], 'myData' : dataArray[9][0], marker: {enabled: false }};
-            tmpData.push(tmp);
+            tmp = {'y': dataArray[0][9][i], 'myData' : dataArray[0][8][i]};
+            tmpData2.push(tmp);
             //sinAvance index 10
-            tmp = {name: 'Sin Avance','y': dataArray[10][0], 'myData' : dataArray[11][0], marker: {enabled: false }};
-            tmpData.push(tmp);
-    return tmpData;
+            tmp = {'y': dataArray[0][11][i], 'myData' : dataArray[0][10][i]};
+            tmpData3.push(tmp);
+        }    
+        
+        var result = [];
+        result.push(tmpData1);
+        result.push(tmpData2);
+        result.push(tmpData3);
+    return result;
 
 }
 /** ______________________________________________________start UPDATE GRAPH________________________________________________________________**/
@@ -132,14 +157,16 @@ function updateGraphData(type){
         chart.setTitle({ text: ' Progresion global (01/01/2017 - 30/07/2017) '});   
        //data:  
        //add new data in % -> between [0,100]
-        chart.addSeries({
+    
+
+       chart.addSeries({
             'name': 'Avancado',
-            'data' : [0.01,14,43,50,76,79],
+            'data' : createGeneralGraphSeries(getData()),
             'marker': {
                 enabled : false
-                }
             }
-            ,false);
+        }
+        ,false);
         //color:
         chart.series[0].update({
             color: color ? null : colorType[2] 
@@ -207,6 +234,7 @@ function updateGraphData(type){
 creates: [feminino in % ,masculino in % ,sumArray, feminino, masculino]   **/
 function updateDataRegion(type, in1, in2){
     //get Chart to update
+    var tmp = createGeneralBarSeries(getData());
     var color= false;
     var chart = $('#container3').highcharts();
     //remove all series :
@@ -219,66 +247,22 @@ function updateDataRegion(type, in1, in2){
         //TODO set names of Regions 
         //chart.xAxis[0].setCategories(['region1', 'region2', 'region3']);
         //set data
-        chart.addSeries( {
-                name: 'Sin Avance',
-                data: [{
-                    /**[feminino in % ,masculino in % ,sumArray, feminino, masculino]   **/
-                    y: dataArray[0][0],
-                    myData: dataArray[3][0],
-                }, {
-                    y: dataArray[0][1],
-                    myData: dataArray[3][1]
-                }, {
-                    y: dataArray[0][2],
-                    myData: dataArray[3][2]
-                }, {
-                    y: dataArray[0][3],
-                    myData: dataArray[3][2]
-                }, {
-                    y: dataArray[0][4],
-                    myData: dataArray[3][4]
-                }]
-            },false);
-
+        
         chart.addSeries( {
                 name: 'Avanzando',
-                data: [{
-                    y: dataArray[1][0],
-                    myData: dataArray[4][0]
-                }, {
-                    y: dataArray[1][1],
-                    myData: dataArray[4][1]
-                }, {
-                    y: dataArray[1][2],
-                    myData: dataArray[4][2]
-                }, {
-                    y: dataArray[1][3],
-                    myData: dataArray[4][3]
-                }, {
-                    y: dataArray[1][4],
-                    myData: dataArray[4][4]
-                }]
+                data: tmp[0],
+            },false);
+        chart.addSeries( {
+                name: 'Terminado',
+                data: tmp[1],
+            },false);
+        chart.addSeries( {
+                name: 'Sin Avance',
+                data: tmp[2],
             },false);
 
-        chart.addSeries( {
-                name: 'Finalizado',
-                data: [{
-                    y: dataArray[1][0],
-                    myData: dataArray[4][0]
-                }, {
-                    y: dataArray[1][1],
-                    myData: dataArray[4][1]
-                }, {
-                    y: dataArray[1][2],
-                    myData: dataArray[4][2]
-                }, {
-                    y: dataArray[1][3],
-                    myData: dataArray[4][3]
-                }, {
-                    y: dataArray[1][4],
-                    myData: dataArray[4][4]
-                }]
-            },false); 
+          
+        
         //set Color   
         chart.series[0].update({
             color: color ? null : colorType[0] 
@@ -498,7 +482,7 @@ function createChartGraph(container, sum){
                             y: -5
                         },
                         title: {
-                            text: 'sgsthee'
+                            text: ''
                         }
                     },
                     subtitle: {
@@ -539,7 +523,7 @@ function createChartBar(container, dataArray){
             min: 1,
             max: 100,
             title: {
-                text: 'students'
+                text: 'students in %'
             }
         },
             //remove Highcharts logo :

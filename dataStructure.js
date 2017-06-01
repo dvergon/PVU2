@@ -127,15 +127,15 @@ function getData(){
 	//var avanzado  =	[total, hombres, mujeres, public, private, sub ];
 	var avanzado  =	[30, 15, 15, 10, 10, 10 ];
 	// avanzado_per	= [total_per, hombres_per, mujeres_per, public_per, private_per, sub_per];
-	var avanzado_per = [20, 18.75, 21.43, 6.6, 6.6, 6.6]
+	var avanzado_per = [20, 18.75, 21.43, 37.03, 18.87, 14.28]
 	//var terminado = [total, hombres, mujeres, public, private, sub ];
 	var terminado = [50, 20, 30, 5, 15, 30 ];
 	// terminado_per	= [total_per, hombres_per, mujeres_per, public_per, private_per, sub_per];
-	var terminado_per = [23.33, 25, 42.86, 3.33, 10, 20]
+	var terminado_per = [23.33, 25, 42.86, 18.52, 28.3, 42.86]
 	//var sinAvance = [total, hombres, mujeres, public, private, sub ];
 	var sinAvance = [70, 45, 25, 12, 28, 30 ];
 	// sinAvance_per	= [total_per, hombres_per, mujeres_per, public_per, private_per, sub_per];
-	var sinAvance_per = [46.66, 56.25, 35.71, 8, 18.66, 20]
+	var sinAvance_per = [46.66, 56.25, 35.71, 44.45, 52.83, 42.86]
 
 
 	//var public    	= [total, hombres, mujeres];
@@ -153,7 +153,7 @@ function getData(){
 	//data month before = [avanzando_enero,avanzando_enero_per, avanzando_febrero, avanzando_enero_per ..]
 	var avanzado_month_before = [1, 22, 35, 50];
 
-	var dataStruc = [	 					                    
+	var dataChile = [	 					                    
 		'chile', 							//0 name of the region: index 0 --> Chile total 
 		150,								//1 amount of students total
 		80,									//2 amunt of hombres
@@ -175,16 +175,49 @@ function getData(){
 		avanzado_month_before               //18 avancado_month_before  = [avanzando_enero,avanzando_enero_per, avanzando_febrero, avanzando_enero_per ..]
 	]
 
+	var dataStruc = [];
+	dataStruc.push(dataChile);
+	dataStruc.push(dataChile);
+
 	return dataStruc;
 }
 
-function calculatePercentage( total, val1, val2, val3){
-	var tmp =[];
-	tmp.push(val1/total *100);
-	tmp.push(val2/total*100);
-	tmp.push(val3/total*100);
-	return tmp;
 
+
+function createD3Json_general(dataArray){
+	var obj = new Object();
+   	obj.name = "children";
+   	var children = new Object();
+   	var tmp = new Object();
+   	tmp.name = "Finalizado";
+   	tmp.size = 399;
+   	children.add(tmp)
+   	tmp.name = "Avanzando";
+   	tmp.size = 322;
+   	children.push(tmp)
+   	tmp.name = "sin avance";
+   	tmp.size = 399;
+   	children.push(tmp)
+   
+   	var jsonString= JSON.stringify(obj);
+   	console.log(obj)
 
 }
-
+/**
+var json_general={
+   "children":[
+      {
+         "name":"Finalizado",
+         "size":399
+      },
+      {
+         "name":"Avanzando",
+         "size":394
+      },
+      {
+         "name":"Sin avance",
+         "size":33
+      }
+   ]
+};
+**/
