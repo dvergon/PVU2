@@ -166,7 +166,9 @@ function createMap(){
     onEachFeature: onEachFeature
   }).addTo(map);
 
-  var info = L.control();
+  var info = L.control({
+     position : 'topleft'
+  });
 
   info.onAdd = function (map) {
     this._div = L.DomUtil.create('div', 'info'); 
@@ -211,6 +213,7 @@ function createMap(){
 
   //highlight surroundings
   function clickHighlight(e) {
+    selected = e;
     geojson = L.geoJson(chile, {
       style:style,
       onEachFeature: onEachFeature
@@ -220,9 +223,8 @@ function createMap(){
 
     layer.setStyle({
       color: '#666',
-      dashArray: '',
       weight: 3,
-      fillOpacity: 0.7
+      fillOpacity: 0.6
     });
 
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {

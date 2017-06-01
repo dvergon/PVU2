@@ -18,8 +18,11 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <!--Let browser know website is optimized for mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+   <!--data: -->
+  <script type="text/javascript" src="dataStructure.js"></script>
+  <script type="text/javascript" src="highchart_bar.js"></script>
+
   <!-- geojson files from http://siit2.bcn.cl/mapas_vectoriales/index_html/ : -->
-  
   <!--all regions: -->
   <script type="text/javascript" src="geojson/chile.js"></script>
   <!-- each region -->
@@ -166,6 +169,11 @@
     dataArray = createDataRegion(data3, data2, a, b, c);
     //draw bar chart: 
     createChartBar('container3',dataArray);
+
+    var testArray = getData();
+    var generalBarData = createGeneralBarSeries(testArray);
+
+
     //draw sunburst:
     //updateData(json_general,colors_school); 
     createVisualization(json_general, colors_school);

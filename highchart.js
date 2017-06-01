@@ -67,6 +67,26 @@ function createDataRegion(in1, in2){
     return [out1,out2,sumArray,in1, in2];
 }
 
+
+/** general BAr Series creator   **/
+function createGeneralBarSeries(dataArray){
+     var tmp;
+
+        var tmpData=[];
+        //todo loop 
+        //update y.value and myData
+            //avanzado index 6
+            tmp = {name: 'Avanzando', 'y': dataArray[6][0], 'myData' : dataArray[7][0], marker: {enabled: false }};
+            tmpData.push(tmp);
+            //terminado index 8
+            tmp = {name: 'Terminado','y': dataArray[8][0], 'myData' : dataArray[9][0], marker: {enabled: false }};
+            tmpData.push(tmp);
+            //sinAvance index 10
+            tmp = {name: 'Sin Avance','y': dataArray[10][0], 'myData' : dataArray[11][0], marker: {enabled: false }};
+            tmpData.push(tmp);
+    return tmpData;
+
+}
 /** ______________________________________________________start UPDATE GRAPH________________________________________________________________**/
 //update Data for Graph 
 function updateGraphData(type){
@@ -463,7 +483,7 @@ function createChartGraph(container, sum){
         responsive: {
             rules: [{
                 condition: {
-                    maxWidth: 300
+                    maxWidth: 500
                 },
                 chartOptions: {
                     legend: {
