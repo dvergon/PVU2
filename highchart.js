@@ -112,6 +112,7 @@ function createGeneralBarSeries(dataArray){
     return result;
 
 }
+
 /** ______________________________________________________start UPDATE GRAPH________________________________________________________________**/
 //update Data for Graph 
 function updateGraphData(type){
