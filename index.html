@@ -170,7 +170,10 @@ function createInterface(){
 function updateInterfaceGeneralChile(selected){
   updateInterfaceGeneral(selected);
   console.log(selectedRegion)
-  
+  //TODO find a better way to update the map !!
+  map.off();
+  map.remove();
+  createMap();
   choosedRegion = false;
 }
 
