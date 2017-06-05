@@ -161,7 +161,7 @@ function updateGraphData(type){
     
 
        chart.addSeries({
-            'name': 'Avancado',
+            'name': 'Terminado',
             'data' : createGeneralGraphSeries(getData()),
             'marker': {
                 enabled : false
@@ -248,20 +248,22 @@ function updateDataRegion(type, in1, in2){
         //TODO set names of Regions 
         //chart.xAxis[0].setCategories(['region1', 'region2', 'region3']);
         //set data
-        
         chart.addSeries( {
                 name: 'Avanzando',
                 data: tmp[0],
             },false);
-        chart.addSeries( {
-                name: 'Terminado',
-                data: tmp[1],
-            },false);
+         
         chart.addSeries( {
                 name: 'Sin Avance',
                 data: tmp[2],
             },false);
+         chart.addSeries( {
+                name: 'Terminado',
+                data: tmp[1],
+            },false);
+        
 
+       
           
         
         //set Color   
@@ -432,7 +434,7 @@ function createChartGraph(container, sum){
             min:0,
             max:100,
             title: {
-                text: 'Avancado en %',
+                text: 'Terminado en %',
             }, 
         },
         //remove Highcharts logo :
@@ -499,7 +501,7 @@ function createChartGraph(container, sum){
          colorType[2]
         ],
         series: [{
-            'name': 'Avancado',
+            'name': 'Terminado',
             'data' : [0.01,14,43,50,76,79],
             'marker': {
                 enabled : false

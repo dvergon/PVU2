@@ -1,4 +1,4 @@
-
+/**   **/
 #sidebar {
   margin-left: 390px;
 }
@@ -36,6 +36,7 @@
   font-size: 1.5em;
 }
 
+/** Leaflet map  **/
 #map {
   position: relative;
   height: 100%;
@@ -79,6 +80,7 @@
   margin: 0 0 15px 0 ! important;;
   padding: 0px 0px 0px 8px ! important;
   font-size: 1.1em ! important;
+
 }
 
 .select-wrapper {
@@ -125,4 +127,13 @@
 .caret {
   border: 0px ! important;
   right: 8px ! important;
+}
+
+.breadcrumb {
+  color: black !important;
+  display: none;
+}
+
+.breadcrumb:before {
+  color: black !important;
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
   <!--Import Google Icon Font-->
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Import materialize.css-->
@@ -41,11 +42,6 @@
       <script type="text/javascript" src="geojson/maule.geojson"></script> 
       <script type="text/javascript" src="geojson/santiago.geojson"></script>-->
 </head>
-<style type="text/css">
-  
-  
-}
-</style>
 <body style="background: #eff3f9;">
 <!--nav-bar start-->
   <nav class="white" role="navigation">
@@ -71,10 +67,6 @@
                   <span style='background: #D4D4D4'></span>
                   <span style='background: #B0DEB1'></span>
                   <span style='background: #21DA29'></span>
-                  <!--<label>0</label>
-                  <label></label>
-                  <label>100%</label>
-                  -->
               </div>
             </div>  
             <!-- map end-->         
@@ -82,16 +74,26 @@
         </div>
         <!--start chart-container-->
         <div class="col s12 m8 " id='chart-container'>
+        <nav class="bread white z-depth-0 ">
+          <div class="nav-wrapper ">
+            <div class="col s12">
+              <a  id="breadcrumbChile" href="javascript:updateInterfaceGeneralChile('General')" class="breadcrumb">Chile</a>
+              <!--TODO  get name of region and link to this data 
+              <a href="javascript:updateGender('Genero')" class="breadcrumb">Genero</a>
+              <a href="javascript:updateTypo('Typo')" class="breadcrumb">Typo</a>-->
+              <a id="breadcrumbRegion" href="javascript:updateInterfaceRegion()" class="breadcrumb">Bio Bio</a>
+              <a id="breadcrumbCommun" href="javascript:updateInterfaceCommune()" class="breadcrumb">commun</a>
+            </div>
+          </div>
+        </nav>
           <div> 
-            <h1 style="margin-top: 0.5em;">Chile 
-              <hr style="margin-top: 5px ! important; margin-bottom: 20px ! important; border-top: 2px solid #eee;"/>
-            </h1>
+            
           </div>
           <!-- filter button start-->
           <select id="selectedChart" class="select-chart">
-            <option value="General" selected>Datos Generales</option>
-            <option value="Genero">Genero</option>
-            <option value="Typo">Typo de estableciemiento</option>
+            <option id="selectGeneral" value="General" selected>Datos Generales</option>
+            <option id="selectGenero" value="Genero">Genero</option>
+            <option id="selectTypo" value="Typo">Typo de estableciemiento</option>
             <label>Datos Generales</label>
           </select>    
           <!-- sunburst chart start-->
@@ -111,9 +113,7 @@
           <div class="container" style="width:20em; max-height: 200px;">
             <div id="container2" id="graph-chart"></div>
           </div>
-
           <div  id="container3"  id="bar-chart"></div>
-
           <div class="row">
             <form class="col s12">
               <div class="row">
@@ -125,41 +125,33 @@
               </div>
             </form>
           </div>
-
-        
-               
-          </div>
-          <!--end chart-container-->
+        <!--end chart-container-->
         </div>
       </div>
     </div>
-
-
  
-  <!--Import jQuery before materialize.js-->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <!--highcharts-->
-  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/modules/exporting.js"></script>
-  <script type="text/javascript" src="highchart.js"></script>
-  
-  <!--materialize-->
-  <script type="text/javascript" src="materialize/materialize.min.js"></script>
-  
-  <script type="text/javascript">
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<!--highcharts-->
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script type="text/javascript" src="highchart.js"></script>
+ <script type="text/javascript" src="map.js"></script>
+<!--materialize-->
+<script type="text/javascript" src="materialize/materialize.min.js"></script>
+<script type="text/javascript">
+var choosedRegion = false;
+var selectedRegion= null;
+//Color Array: Type  [finalizado, Avanzado, sin avance] 
+var colorType = ['#D4D4D4','#B0DEB1', '#21DA29'];
+//[maculin, feminin]
+var colorGender = ['#475CCD','#FA0081'];
+//[Muncipal, Subvencionado, Particular]
+var colorSchools = ['#9447CD','#00C3FA','#FAAF00'];
 
-  var choosedRegion = false;
-  //Color Array: Type  [finalizado, Avanzado, sin avance] 
-  var colorType = ['#D4D4D4','#B0DEB1', '#21DA29'];
-  //[maculin, feminin]
-  var colorGender = ['#475CCD','#FA0081'];
-  //[Muncipal, Subvencionado, Particular]
-  var colorSchools = ['#9447CD','#00C3FA','#FAAF00'];
-
-   
-  //if window is ready: 
-  window.onload = function(e){ 
-    //create Leaflet Map
+// inital interface:
+function createInterface(){
+  //create Leaflet Map
     createMap();  
     //create graph chart:
     createChartGraph('container2', getSum_ofLastValuesInArray(data1,data2));
@@ -168,13 +160,61 @@
     dataArray = createDataRegion(data3, data2, a, b, c);
     //draw bar chart: 
     createChartBar('container3',dataArray);
-
-   
-
-
     //draw sunburst:
     //updateData(json_general,colors_school); 
     createVisualization(json_general, colors_school);
+    document.getElementById('breadcrumbChile').style.display = "initial";
+}
+
+//update to main page Chile   
+function updateInterfaceGeneralChile(selected){
+  updateInterfaceGeneral(selected);
+  console.log(selectedRegion)
+  
+  choosedRegion = false;
+}
+
+//update to General of region 
+function updateInterfaceGeneral(selected){
+  updateGraphData(selected);
+  updateDataRegion(selected, data1, data2);
+  updateData(json_general,colors_school); 
+  document.getElementById('breadcrumbRegion').style.display = "";  
+}
+
+//update to Gender
+function updateInterfaceGender(selected){
+  updateGraphData(selected);
+  updateDataRegion(selected, data3, data4);
+  updateData(json_gender, colors_gender); 
+}
+
+// update to Typo
+function updateInterfaceTypo(selected){
+  updateGraphData(selected);
+  updateDataRegion(selected, data2, data4);
+  updateData(json_schools,colors_school); 
+}
+
+// update Region General 
+function updateInterfaceRegion(){
+  updateInterfaceGeneral('General');
+  document.getElementById('breadcrumbRegion').style.display = "initial";
+}
+
+// update commune General 
+function updateInterfaceCommune(){
+  document.getElementById('breadcrumbRegion').style.display = "initial";
+  document.getElementById('breadcrumbCommun').style.display = "initial";
+}
+
+
+//TODO generic methods with parameters to create the new views 
+
+
+  //if window is ready: 
+  window.onload = function(e){ 
+    createInterface();
   }
 
   $(document).ready(function() {
@@ -182,33 +222,22 @@
     $('#selectedChart').on('change', function() {
       if(choosedRegion == false ){
         if(selectedChart.value == 'Genero'){
-          updateGraphData(selectedChart.value);
-          updateDataRegion(selectedChart.value, data3, data4);
-          updateData(json_gender, colors_gender); 
-
+          updateInterfaceGender(selectedChart.value);
         }
         if(selectedChart.value == 'Typo'){
-          updateGraphData(selectedChart.value);
-          updateDataRegion(selectedChart.value, data2, data4);
-          updateData(json_schools,colors_school); 
-
+          updateInterfaceTypo(selectedChart.value);
         }
         if(selectedChart.value == 'General'){
-          updateGraphData(selectedChart.value);
-          updateDataRegion(selectedChart.value, data1, data2);
-          updateData(json_general,colors_school); 
-
+          updateInterfaceGeneral(selectedChart.value);
         }
       }
     });
 
     $('select').material_select();
-
-     
-
   });
   </script>
- <script type="text/javascript" src="combination.js"></script>
+
+ <script type="text/javascript" src="sunburst.js"></script>
 
 </body>
 </html>
